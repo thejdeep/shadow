@@ -7,7 +7,7 @@
     <meta name="generator" content="VuePress 1.6.0">
     
     <meta name="description" content="">
-    <link rel="preload" href="/shadow/assets/css/0.styles.ede77536.css" as="style"><link rel="preload" href="/shadow/assets/js/app.389a5252.js" as="script"><link rel="preload" href="/shadow/assets/js/2.09255d06.js" as="script"><link rel="preload" href="/shadow/assets/js/23.04027cbc.js" as="script"><link rel="prefetch" href="/shadow/assets/js/10.e9b6dc3e.js"><link rel="prefetch" href="/shadow/assets/js/11.49cacaa6.js"><link rel="prefetch" href="/shadow/assets/js/12.5b374ef8.js"><link rel="prefetch" href="/shadow/assets/js/13.c21215df.js"><link rel="prefetch" href="/shadow/assets/js/14.cc1a15f1.js"><link rel="prefetch" href="/shadow/assets/js/15.07d3e3a9.js"><link rel="prefetch" href="/shadow/assets/js/16.611c78a5.js"><link rel="prefetch" href="/shadow/assets/js/17.2ca1f9d4.js"><link rel="prefetch" href="/shadow/assets/js/18.dc1d116e.js"><link rel="prefetch" href="/shadow/assets/js/19.274dce72.js"><link rel="prefetch" href="/shadow/assets/js/20.d72da9ed.js"><link rel="prefetch" href="/shadow/assets/js/21.bd64759a.js"><link rel="prefetch" href="/shadow/assets/js/22.5aa0ed3a.js"><link rel="prefetch" href="/shadow/assets/js/24.9e45fa4a.js"><link rel="prefetch" href="/shadow/assets/js/3.0dfc1bcd.js"><link rel="prefetch" href="/shadow/assets/js/4.4deef9ed.js"><link rel="prefetch" href="/shadow/assets/js/5.771c4330.js"><link rel="prefetch" href="/shadow/assets/js/6.e416f727.js"><link rel="prefetch" href="/shadow/assets/js/7.1eb472b6.js"><link rel="prefetch" href="/shadow/assets/js/8.a1b6d483.js"><link rel="prefetch" href="/shadow/assets/js/9.848e11db.js">
+    <link rel="preload" href="/shadow/assets/css/0.styles.ede77536.css" as="style"><link rel="preload" href="/shadow/assets/js/app.3b60b238.js" as="script"><link rel="preload" href="/shadow/assets/js/2.09255d06.js" as="script"><link rel="preload" href="/shadow/assets/js/23.30099eaa.js" as="script"><link rel="prefetch" href="/shadow/assets/js/10.46528839.js"><link rel="prefetch" href="/shadow/assets/js/11.8fd6b968.js"><link rel="prefetch" href="/shadow/assets/js/12.16503085.js"><link rel="prefetch" href="/shadow/assets/js/13.c21215df.js"><link rel="prefetch" href="/shadow/assets/js/14.cc1a15f1.js"><link rel="prefetch" href="/shadow/assets/js/15.07d3e3a9.js"><link rel="prefetch" href="/shadow/assets/js/16.611c78a5.js"><link rel="prefetch" href="/shadow/assets/js/17.36c6b606.js"><link rel="prefetch" href="/shadow/assets/js/18.f0ac4a5c.js"><link rel="prefetch" href="/shadow/assets/js/19.1d2f81c8.js"><link rel="prefetch" href="/shadow/assets/js/20.73b58f51.js"><link rel="prefetch" href="/shadow/assets/js/21.69e33d99.js"><link rel="prefetch" href="/shadow/assets/js/22.23900399.js"><link rel="prefetch" href="/shadow/assets/js/24.48738a84.js"><link rel="prefetch" href="/shadow/assets/js/3.0dfc1bcd.js"><link rel="prefetch" href="/shadow/assets/js/4.4deef9ed.js"><link rel="prefetch" href="/shadow/assets/js/5.771c4330.js"><link rel="prefetch" href="/shadow/assets/js/6.e416f727.js"><link rel="prefetch" href="/shadow/assets/js/7.1eb472b6.js"><link rel="prefetch" href="/shadow/assets/js/8.27572bcc.js"><link rel="prefetch" href="/shadow/assets/js/9.cdb5db3b.js">
     <link rel="stylesheet" href="/shadow/assets/css/0.styles.ede77536.css">
   </head>
   <body>
@@ -27,10 +27,10 @@ Tasks of this type are configured to target an instance of a <code>ShadowJar</co
 <code>ShadowJar</code> task and collects the package names contained within them. It then configures relocation for these
 packages using the specified <code>prefix</code> on the associated <code>ShadowJar</code> task.</p> <p>While this is useful for developing Gradle plugins, nothing about the <code>ConfigureShadowRelocation</code> task is tied to
 Gradle projects. It can be used for standard Java or Groovy projects.</p> <p>A simple Gradle plugin can use this feature by applying the <code>shadow</code> plugin and configuring the relocation task
-to execute before the <code>shadowJar</code> tasks:</p> <div class="language-groovy no-plugins extra-class"><pre class="language-groovy"><code><span class="token keyword">import</span> com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>jengelman<span class="token punctuation">.</span>gradle<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>shadow<span class="token punctuation">.</span>tasks<span class="token punctuation">.</span>ConfigureShadowRelocation
+to execute before the <code>shadowJar</code> tasks:</p> <div class="language-groovy no-plugins extra-class"><pre class="language-groovy"><code><span class="token keyword">import</span> com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>jengelman<span class="token punctuation">.</span>gradle<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>shadow<span class="token punctuation">.</span>tasks<span class="token punctuation">.</span>ShadowJar
 
 plugins <span class="token punctuation">{</span>
-  id <span class="token string">'com.github.johnrengelman.shadow'</span> version <span class="token string">'8.0.0'</span>
+  id <span class="token string">'com.github.johnrengelman.shadow'</span> version <span class="token string">'8.1.0'</span>
   id <span class="token string">'java'</span>
 <span class="token punctuation">}</span>
 
@@ -46,11 +46,9 @@ dependencies <span class="token punctuation">{</span>
     implementation <span class="token string">'org.codehaus.plexus:plexus-utils:2.0.6'</span>
 <span class="token punctuation">}</span>
 
-task <span class="token function">relocateShadowJar</span><span class="token punctuation">(</span>type<span class="token punctuation">:</span> ConfigureShadowRelocation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    target <span class="token operator">=</span> tasks<span class="token punctuation">.</span>shadowJar
+tasks<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'shadowJar'</span><span class="token punctuation">,</span> ShadowJar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    enableRelocation <span class="token boolean">true</span>
 <span class="token punctuation">}</span>
-
-tasks<span class="token punctuation">.</span>shadowJar<span class="token punctuation">.</span>dependsOn tasks<span class="token punctuation">.</span>relocateShadowJar
 </code></pre></div><p>Note that the <code>localGroovy()</code> and <code>gradleApi()</code> dependencies are added to the <code>shadow</code> configuration instead of the
 normal <code>compile</code> configuration. These 2 dependencies are provided by Gradle to compile your project but are ultimately
 provided by the Gradle runtime when executing the plugin. Thus, it is <strong>not</strong> advisable to bundle these dependencies
@@ -68,6 +66,6 @@ configurations.compile.dependencies.remove dependencies.gradleApi()
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/shadow/assets/js/app.389a5252.js" defer></script><script src="/shadow/assets/js/2.09255d06.js" defer></script><script src="/shadow/assets/js/23.04027cbc.js" defer></script>
+    <script src="/shadow/assets/js/app.3b60b238.js" defer></script><script src="/shadow/assets/js/2.09255d06.js" defer></script><script src="/shadow/assets/js/23.30099eaa.js" defer></script>
   </body>
 </html>
