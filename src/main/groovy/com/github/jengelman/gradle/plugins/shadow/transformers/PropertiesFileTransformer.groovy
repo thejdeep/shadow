@@ -134,7 +134,7 @@ class PropertiesFileTransformer implements Transformer {
     @Internal
     Closure<String> keyTransformer = IDENTITY
 
-    @Input
+    @Internal
     Closure<String> valueTransformer = IDENTITY
 
     @Override
