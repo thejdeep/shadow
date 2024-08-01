@@ -119,11 +119,12 @@ class PropertiesFileTransformerSpec extends TransformerSpecSupport {
         'foo.properties' | ['.*bar': [mergeStrategy: 'first']]                              | ['foo': 'foo'] | ['foo': 'bar'] || [:]
     }
 
-    void appliesKeyTransformer() {
+    void appliesKeyValueTransformer() {
         given:
         def element = getFileElement(path)
         Transformer transformer = new PropertiesFileTransformer()
         transformer.keyTransformer = keyTransformer
+        transformer.valueTransformer = valueTransformer
         transformer.mergeStrategy = 'append'
 
         when:
@@ -136,10 +137,10 @@ class PropertiesFileTransformerSpec extends TransformerSpecSupport {
         output == toMap(transformer.propertiesEntries[path])
 
         where:
-        path             | keyTransformer                                | input1         | input2         || output
-        'foo.properties' | IDENTITY                                      | ['foo': 'bar'] | ['FOO': 'baz'] || ['foo': 'bar', 'FOO': 'baz']
-        'foo.properties' | { key -> key.toUpperCase() }                  | ['foo': 'bar'] | ['FOO': 'baz'] || ['FOO': 'bar,baz']
-        'foo.properties' | { key -> 'bar.' + key.toLowerCase() }         | ['foo': 'bar'] | ['FOO': 'baz'] || ['bar.foo': 'bar,baz']
-        'foo.properties' | { key -> key.replaceAll('^(foo)', 'bar.$1') } | ['foo': 'bar'] | ['FOO': 'baz'] || ['bar.foo': 'bar', 'FOO': 'baz']
+        path             | keyTransformer                                | valueTransformer                                  | input1                | input2         || output
+        'foo.properties' | IDENTITY                                      | IDENTITY                                          | ['foo': 'bar']                  | ['FOO': 'baz'] || ['foo': 'bar', 'FOO': 'baz']
+        'foo.properties' | { key -> key.toUpperCase() }                  | { value -> value.toUpperCase() }                  | ['foo': 'bar'] | ['FOO': 'baz'] || ['FOO': 'BAR,BAZ']
+        'foo.properties' | { key -> 'bar.' + key.toLowerCase() }         | { value -> 'bar.' + value.toLowerCase() }         | ['foo': 'bar'] | ['FOO': 'baz'] || ['bar.foo': 'bar.bar,bar.baz']
+        'foo.properties' | { key -> key.replaceAll('^(foo)', 'bar.$1') } | { value -> value.replaceAll('^(foo)', 'bar.$1') } |['foo': 'bar'] | ['FOO': 'baz']  || ['bar.foo': 'bar', 'FOO': 'baz']
     }
 }

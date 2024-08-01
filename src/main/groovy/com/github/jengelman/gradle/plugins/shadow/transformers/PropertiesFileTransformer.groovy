@@ -134,6 +134,9 @@ class PropertiesFileTransformer implements Transformer {
     @Internal
     Closure<String> keyTransformer = IDENTITY
 
+    @Input
+    Closure<String> valueTransformer = IDENTITY
+
     @Override
     boolean canTransformResource(FileTreeElement element) {
         def path = element.relativePath.pathString
@@ -185,11 +188,13 @@ class PropertiesFileTransformer implements Transformer {
     }
 
     private Properties transformKeys(Properties properties) {
-        if (keyTransformer == IDENTITY)
+        if (keyTransformer == IDENTITY && valueTransformer == IDENTITY)
             return properties
         def result = new Properties()
         properties.each { key, value ->
-            result.put(keyTransformer.call(key), value)
+            def transformedKey = keyTransformer != IDENTITY ? keyTransformer.call(key) : key
+            def transformedValue = valueTransformer != IDENTITY ? valueTransformer.call(value) : value
+            result.put(transformedKey, transformedValue)
         }
         return result
     }
